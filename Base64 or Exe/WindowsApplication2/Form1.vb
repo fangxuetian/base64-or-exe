@@ -1,12 +1,13 @@
 ﻿Imports System.IO
 
+
 Public Class Form1
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim OpenFileDialog As New OpenFileDialog
         With OpenFileDialog
             .Title = "Select exe file"
-            .Filter = " Files (*.exe)|*.exe"
+
             .ShowDialog()
         End With
         TextBox1.Text = OpenFileDialog.FileName
@@ -25,7 +26,7 @@ Public Class Form1
             MsgBox("There is nothing to copy", MsgBoxStyle.Critical)
         End If
         RichTextBox1.SelectAll()
-            RichTextBox1.Copy()
+        RichTextBox1.Copy()
 
     End Sub
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
@@ -68,18 +69,23 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+
+        If RichTextBox1.Text = Nothing Then
+            MsgBox("Please paste some base64 characters", MsgBoxStyle.Critical)
+            Return
+        End If
         Try
             RichTextBox1.Text = New System.Text.ASCIIEncoding().GetString(Convert.FromBase64String(RichTextBox1.Text))
             MsgBox("Done", MsgBoxStyle.Information)
         Catch ex As Exception
             MsgBox("Invalid base64 characters", MsgBoxStyle.Exclamation)
+
         End Try
 
     End Sub
 End Class
+
 
